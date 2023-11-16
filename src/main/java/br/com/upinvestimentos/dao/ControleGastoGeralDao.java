@@ -21,7 +21,7 @@ public class ControleGastoGeralDao {
 		ResultSet rstm = null;
 		try {
 			conexaoDB = ConexaoOracle.realizarConexao();
-			stmt = conexaoDB.prepareStatement("SELECT * FROM T_USUARIO");
+			stmt = conexaoDB.prepareStatement("SELECT * FROM T_GASTOS_GERAL"); // Verificar a tabela
 			rstm = stmt.executeQuery();
 
 			// Percorre todos os registros encontrados
