@@ -5,30 +5,30 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import br.com.upinvestimentos.bd.ConexaoOracle;
-import br.com.upinvestimentos.model.ControleGastoGeralModel;
 
-public class ControleGastoGeralDao {
+public class GastosDAO {
 	private Connection conexaoDB;
 	private int cdTransacao; // Código da transação  
 	private Double valorSaldo; //Saldo atual
 	private int idUser;
 	
 	
-	public ControleGastoGeralDao() {
-		
+	public GastosDAO(int cdTransacao, Double valorSaldo, int idUser) {
+		this.cdTransacao = cdTransacao;
+		this.valorSaldo = valorSaldo;
+		this.idUser = idUser;
 	}
 	
-	public void ControleGastosGeralModel() {
-		
+	public GastosDAO() {
+
 	}
+	
 
-	public List<ControleGastoGeralDao> ControleGastoGeralConsulta() {
-		List<ControleGastoGeralModel> ListaControleGastosGeral = new ArrayList<ControleGastoGeralModel>();
-
+	public List<GastosDAO> getAll() {
+		List<GastosDAO> lista = new ArrayList<GastosDAO>();
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		
@@ -39,13 +39,13 @@ public class ControleGastoGeralDao {
 
 			// Percorre todos os registros encontrados
 			while (rs.next()) {
-				int cdTransacao = rs.getInt("CD_TRANSACAO");
-				Double valorSaldo = rs.getDouble("VL_CRTL_SALDO");
+				int numTransacoes = rs.getInt("CD_TRANSACAO");
+				Double valorTransacoes = rs.getDouble("VL_CRTL_SALDO");
 				int idUser = rs.getInt("CD_USER");
+				
 				// Cria um objeto novoUsuario com as informações encontradas
-				ControleGastoGeralModel novoGasto = new ControleGastoGeralModel(cdTransacao, valorSaldo, idUser);
-				// Adiciona o gasto na lista
-				ListaControleGastosGeral.add(novoGasto);
+				GastosDAO novoGasto = new GastosDAO(numTransacoes, valorTransacoes, idUser);
+                lista.add(novoGasto);
 
 			}
 		} catch (SQLException e) {
@@ -62,7 +62,7 @@ public class ControleGastoGeralDao {
 				e.printStackTrace();
 			}
 		}
-		return ListaControleGastosGeral;
+		return lista;
 	}
 
 	public int getCdTransacao() {

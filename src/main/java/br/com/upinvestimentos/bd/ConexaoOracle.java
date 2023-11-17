@@ -17,12 +17,12 @@ public class ConexaoOracle {
 
       //Abre uma conexão
       conexaoDB = DriverManager.getConnection(
-          "jdbc:oracle:thin:@oracle.fiap.com.br:1521:ORCL", "RM551344", "260297");
+          "jdbc:oracle:thin:@oracle.fiap.com.br:1521:orcl", "RM551344", "260297");
       conexaoDB.setAutoCommit(false);
       System.out.println("Conectado!");
-      
+      	
       //Fecha a conexão
-      conexaoDB.close();
+//      conexaoDB.close();
       
     //Tratamento de erro  
     }	catch (ClassNotFoundException e) {

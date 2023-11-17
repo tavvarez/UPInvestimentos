@@ -36,7 +36,7 @@ public class ControleGastoGeralModel {
 		public Double getValorSaldo() {
 			// TODO Auto-generated method stub
 			return valorSaldo;
-		}	
-		
+		}
+
 		
 }
