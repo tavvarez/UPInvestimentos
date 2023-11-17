@@ -71,7 +71,7 @@ public class GastosDAO {
 	}
 
 
-	public int getItUser() {
+	public int getIdUser() {
 		// TODO Auto-generated method stub
 		return idUser;
 	}
@@ -80,6 +80,7 @@ public class GastosDAO {
 	public Double getValorSaldo() {
 		// TODO Auto-generated method stub
 		return valorSaldo;
-	}	
+	}
+
 	
 }
