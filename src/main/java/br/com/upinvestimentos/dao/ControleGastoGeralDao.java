@@ -13,29 +13,37 @@ import br.com.upinvestimentos.model.ControleGastoGeralModel;
 
 public class ControleGastoGeralDao {
 	private Connection conexaoDB;
+	private int cdTransacao; // Código da transação  
+	private Double valorSaldo; //Saldo atual
+	private int idUser;
+	
+	
+	public ControleGastoGeralDao() {
+		
+	}
+	
+	public void ControleGastosGeralModel() {
+		
+	}
 
-	public List<ControleGastoGeralModel> ControleGastoGeralConsulta() {
+	public List<ControleGastoGeralDao> ControleGastoGeralConsulta() {
 		List<ControleGastoGeralModel> ListaControleGastosGeral = new ArrayList<ControleGastoGeralModel>();
 
 		PreparedStatement stmt = null;
-		ResultSet rstm = null;
+		ResultSet rs = null;
+		
 		try {
 			conexaoDB = ConexaoOracle.realizarConexao();
-			stmt = conexaoDB.prepareStatement("SELECT * FROM T_GASTOS_GERAL"); // Verificar a tabela
-			rstm = stmt.executeQuery();
+			stmt = conexaoDB.prepareStatement("SELECT * FROM T_CTRL_GASTO"); // CD_TRANSACAO, VL_CRTL_SALDO, CD_USER
+			rs = stmt.executeQuery();
 
 			// Percorre todos os registros encontrados
-			while (rstm.next()) {
-				int idUsuario = rstm.getInt("ID_USUARIO"); // Verificar a tabela do banco e preencher com a coluna correta
-				String nome = rstm.getString("DS_NOME"); // Verificar a tabela do banco e preencher com a coluna correta
-				String sobrenome = rstm.getString("DS_SOBRENOME"); // Verificar a tabela do banco e preencher com a coluna correta
-				String email = rstm.getString("DS_EMAIL"); // Verificar a tabela do banco e preencher com a coluna correta
-				String senha = rstm.getString("DS_SENHA"); // Verificar a tabela do banco e preencher com a coluna correta
-				java.sql.Date data = rstm.getDate("DT_CADASTRO"); // Verificar a tabela do banco e preencher com a coluna correta
-				Calendar dataCadastro = Calendar.getInstance();
-				dataCadastro.setTimeInMillis(data.getTime());
+			while (rs.next()) {
+				int cdTransacao = rs.getInt("CD_TRANSACAO");
+				Double valorSaldo = rs.getDouble("VL_CRTL_SALDO");
+				int idUser = rs.getInt("CD_USER");
 				// Cria um objeto novoUsuario com as informações encontradas
-				ControleGastoGeralModel novoGasto = new ControleGastoGeralModel();
+				ControleGastoGeralModel novoGasto = new ControleGastoGeralModel(cdTransacao, valorSaldo, idUser);
 				// Adiciona o gasto na lista
 				ListaControleGastosGeral.add(novoGasto);
 
@@ -48,7 +56,7 @@ public class ControleGastoGeralDao {
 		} finally {
 			try {
 				stmt.close();
-				rstm.close();
+				rs.close();
 				conexaoDB.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -56,4 +64,22 @@ public class ControleGastoGeralDao {
 		}
 		return ListaControleGastosGeral;
 	}
+
+	public int getCdTransacao() {
+		// TODO Auto-generated method stub
+		return cdTransacao;
+	}
+
+
+	public int getItUser() {
+		// TODO Auto-generated method stub
+		return idUser;
+	}
+
+
+	public Double getValorSaldo() {
+		// TODO Auto-generated method stub
+		return valorSaldo;
+	}	
+	
 }

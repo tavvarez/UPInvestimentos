@@ -1,11 +1,10 @@
 package br.com.upinvestimentos.model;
 
-import java.util.Date;
-
 public class ControleGastoGeralModel {
 
-	private int cd_transacao; // Código da transação  
-	private Double vl_ctrl_saldo; //Saldo atual
+	private int cdTransacao; // Código da transação  
+	private Double valorSaldo; //Saldo atual
+	private int idUser;
 	    
 	    // Construtor padrão sem argumentos
 		public ControleGastoGeralModel() {
@@ -14,10 +13,29 @@ public class ControleGastoGeralModel {
 	
 
 		// Construtor com dados obrigatórios (exceto a senha)
-		public ControleGastoGeralModel(int cd_transacao, Double vl_ctrl_saldo) {
+		public ControleGastoGeralModel(int cdTransacao, Double valorSaldo, int idUser) {
 			super();
-			this.cd_transacao = cd_transacao;
-			this.vl_ctrl_saldo = vl_ctrl_saldo;
+			this.cdTransacao = cdTransacao;
+			this.valorSaldo = valorSaldo;
+			this.idUser = idUser;
+		}
+
+
+		public int getCdTransacao() {
+			// TODO Auto-generated method stub
+			return cdTransacao;
+		}
+
+
+		public int getItUser() {
+			// TODO Auto-generated method stub
+			return idUser;
+		}
+
+
+		public Double getValorSaldo() {
+			// TODO Auto-generated method stub
+			return valorSaldo;
 		}	
 		
 		
