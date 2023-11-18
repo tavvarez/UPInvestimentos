@@ -23,9 +23,10 @@ public class UsuarioModel {
 	public UsuarioModel(int cdUsuario, String nomeUsuario, String numeroCPF, Date dataNasc, String descricaoEmail) {
 		this.cdUsuario = cdUsuario;
 		this.nomeUsuario = nomeUsuario;
-		this.descricaoEmail =descricaoEmail;
 		this.numeroCPF = numeroCPF;
 		this.dataNasc = dataNasc;
+		this.descricaoEmail =descricaoEmail;
+
 	}
 
     // Métodos de acesso para o campo usuarioId
@@ -60,8 +61,8 @@ public class UsuarioModel {
 		return descricaoEmail;
 	}
 	
-	public String setDescricaoEmail(String descricaoEmail) {
-		return this.descricaoEmail = descricaoEmail;
+	public void setDescricaoEmail(String descricaoEmail) {
+	    this.descricaoEmail = descricaoEmail;
 	}
 
 	

@@ -24,8 +24,9 @@ public class Teste {
 
         System.out.println("********************************");
         System.out.println("CONEXÃO COM O BANCO DE DADOS");
-        UsuarioModel usuarioModel = new UsuarioModel(); // Instancia um objeto UsuarioModel
-        UsuarioDAO usuarioDao = new UsuarioDAO(1, "Gabriel Tavares", "111111111", null, "xxxx@gmail.com");
+        
+        UsuarioModel usuarioModel = new UsuarioModel(4, "Gabriel Tavares", "111111111", null, "xxxx@gmail.com"); // Instancia um objeto UsuarioModel
+        UsuarioDAO usuarioDao = new UsuarioDAO();
         usuarioDao.cadastrarUsuario(usuarioModel); // Agora está passando um objeto UsuarioModel
 
         
