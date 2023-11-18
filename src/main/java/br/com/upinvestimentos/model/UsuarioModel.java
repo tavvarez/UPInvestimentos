@@ -14,9 +14,14 @@ public class UsuarioModel {
     private String numeroCPF; // Numero de CPF do usuário
     
     private Date dataNasc; // Data de nascimento do usuário
+    
 
     // Construtor padrão sem argumentos
 	public UsuarioModel() {
+		
+	}
+	
+	public UsuarioModel(int cdUsuario) {
 	}
 
     // Construtor com dados obrigatórios (exceto a senha)
@@ -29,7 +34,12 @@ public class UsuarioModel {
 
 	}
 
-    // Métodos de acesso para o campo usuarioId
+
+	public UsuarioModel(String nomeUsuario, String numeroCPF, String dataFormatada, String descricaoEmail, int cdUsuario) {
+		// TODO Auto-generated constructor stub
+	}
+
+	// Métodos de acesso para o campo usuarioId
 	public int getCdUsuario() {
 		return cdUsuario;
 	}
@@ -75,11 +85,4 @@ public class UsuarioModel {
 			this.dataNasc = dataNasc;
 		}
 
-
-    // Sobrescrita do método toString para exibir os detalhes do usuário
-	@Override
-	public String toString() {
-		return "UsuarioModel [cd_user=" + cd_user + ", nm_user=" + nm_user + ", ds_email=" + ds_email + ", nr_CPF=" + nr_CPF
-				+ ", dt_nasc=" + dt_nasc + "]";
-	}
 }

@@ -2,6 +2,7 @@ package br.com.upinvestimentos.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLDataException;
 import java.sql.SQLException;
 import java.util.Date;
 
@@ -87,6 +88,54 @@ public class UsuarioDAO {
 				}
 			}
 		}
+		
+		
+	////ATUALIZAR USUÁRIO
+		
+	public void atualizarUsuario(UsuarioModel usuario) throws SQLException {
+		PreparedStatement stmt = null;
+		boolean transacaoAtiva = false;
+		try {
+			transacaoAtiva = true;
+			conexao = ConexaoOracle.realizarConexao();
+			String sql = "UPDATE T_USER SET nm_user = ?, nr_CPF = ?, dt_nasc = ?, ds_email = ? WHERE cd_user = ?";
+			stmt = conexao.prepareStatement(sql);
+
+			stmt.setString(1, usuario.getNomeUsuario());
+			stmt.setString(2, usuario.getNumeroCPF());
+			// Utiliza a data de nascimento do usuário, se disponível
+			java.sql.Date dataNascimentoSql = (usuario.getDataNasc() != null)
+					? new java.sql.Date(usuario.getDataNasc().getTime())
+					: null;
+			stmt.setDate(3, dataNascimentoSql);
+			stmt.setString(4, usuario.getDescricaoEmail());
+			stmt.setInt(5, usuario.getCdUsuario());
+
+			int linhasAfetadas = stmt.executeUpdate();
+			if (linhasAfetadas > 0) {
+	            conexao.commit();
+	        } else {
+	            // Caso nenhuma linha seja afetada, pode ser útil fazer um rollback
+	            conexao.rollback();
+	        }
+		} catch (SQLException e) {
+			if (transacaoAtiva) {
+				conexao.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				if (stmt != null) {
+					stmt.close();
+				}
+				if (conexao != null) {
+					conexao.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 	
 
 //LISTAR USUÁRIOS
@@ -184,43 +233,8 @@ public class UsuarioDAO {
 //        return usuario;
 //    }
 //
-//    @Override
-//    public void atualizarUsuario(Usuario usuario) throws DBException {
-//        Connection conexao = null;
-//        PreparedStatement stmt = null;
-//
-////ATUALIZAR USUÁRIO
-//
-//        try {
-//            conexao = ConnectionManager.getInstance().getConnection();
-//            String sql = "UPDATE T_USER SET nm_user = ?, nr_CPF = ?, dt_nasc = ?, ds_email = ? WHERE cd_user = ?";
-//            stmt = conexao.prepareStatement(sql);
-//            
-//            stmt.setString(1, usuario.getNome());
-//            stmt.setString(2, usuario.getCPF());
-//            java.sql.Date dataNascimento = new java.sql.Date(usuario.getDataNascimento().getTimeInMillis());
-//            stmt.setDate(3, dataNascimento);
-//            stmt.setString(4, usuario.getEmail());
-//            stmt.setLong(5, usuario.getCodigo());
-//
-//            stmt.executeUpdate();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//            throw new DBException("Erro ao atualizar usuário.");
-//        } finally {
-//            try {
-//                if (stmt != null) {
-//                    stmt.close();
-//                }
-//                if (conexao != null) {
-//                    conexao.close();
-//                }
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//    }
-//
+
+
 
 
 
