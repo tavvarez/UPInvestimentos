@@ -27,7 +27,9 @@ public class Teste {
         
         UsuarioModel usuarioModel = new UsuarioModel(4, "Gabriel Tavares", "111111111", null, "xxxx@gmail.com"); // Instancia um objeto UsuarioModel
         UsuarioDAO usuarioDao = new UsuarioDAO();
-        usuarioDao.cadastrarUsuario(usuarioModel); // Agora está passando um objeto UsuarioModel
+//        usuarioDao.cadastrarUsuario(usuarioModel); // Agora está passando um objeto UsuarioModel
+        
+        usuarioDao.delUsuario(usuarioModel);
 
         
 //        cd_user, nm_user, nr_CPF, dt_nasc, ds_email

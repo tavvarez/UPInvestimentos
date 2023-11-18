@@ -9,6 +9,7 @@ import br.com.upinvestimentos.bd.ConexaoOracle;
 import br.com.upinvestimentos.model.UsuarioModel;
 
 public class UsuarioDAO {
+	Connection conexao = null;
 	
 	UsuarioModel usuarioModel = new UsuarioModel();
 	
@@ -25,7 +26,7 @@ public class UsuarioDAO {
 	}
 
 	public void cadastrarUsuario(UsuarioModel usuario) throws Exception {
-        Connection conexao = null;
+        
         PreparedStatement stmt = null;
 		
 		
@@ -59,7 +60,34 @@ public class UsuarioDAO {
         }
     }
 	
-}
+//REMOVER USUARIO
+		public void delUsuario(UsuarioModel usuario) throws SQLException {
+			PreparedStatement stmt = null;
+
+			try {
+				conexao = ConexaoOracle.realizarConexao();
+				String sql = "DELETE FROM T_USER WHERE cd_user = ?";
+				stmt = conexao.prepareStatement(sql);
+				stmt.setInt(1, usuario.getCdUsuario()); // Primeiro parâmetro (T_USUARIO_ID_USUARIO)
+
+				stmt.execute();
+
+				conexao.commit(); // Confirma as alterações
+
+			} catch (SQLException e) {
+				// dar rollback em caso de exceção
+				conexao.rollback();
+				e.printStackTrace();
+			} finally {
+				try {
+					stmt.close();
+					conexao.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	
 
 //LISTAR USUÁRIOS
 //
@@ -193,32 +221,7 @@ public class UsuarioDAO {
 //        }
 //    }
 //
-////REMOVER USUARIO
-//    @Override
-//    public void removerUsuario(long codigo) throws DBException {
-//        Connection conexao = null;
-//        PreparedStatement stmt = null;
-//
-//        try {
-//            conexao = ConnectionManager.getInstance().getConnection();
-//            String sql = "DELETE FROM T_USER WHERE cd_user = ?";
-//            stmt = conexao.prepareStatement(sql);
-//            stmt.setLong(1, codigo);
-//            stmt.executeUpdate();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//            throw new DBException("Erro ao remover usuário.");
-//        } finally {
-//            try {
-//                if (stmt != null) {
-//                    stmt.close();
-//                }
-//                if (conexao != null) {
-//                    conexao.close();
-//                }
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//    }
-//}
+
+
+
+}
