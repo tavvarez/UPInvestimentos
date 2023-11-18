@@ -103,11 +103,8 @@ public class UsuarioDAO {
 
 			stmt.setString(1, usuario.getNomeUsuario());
 			stmt.setString(2, usuario.getNumeroCPF());
-			// Utiliza a data de nascimento do usuário, se disponível
-			java.sql.Date dataNascimentoSql = (usuario.getDataNasc() != null)
-					? new java.sql.Date(usuario.getDataNasc().getTime())
-					: null;
-			stmt.setDate(3, dataNascimentoSql);
+			java.sql.Date data = new java.sql.Date(new java.util.Date().getTime());
+			stmt.setDate(3, data);
 			stmt.setString(4, usuario.getDescricaoEmail());
 			stmt.setInt(5, usuario.getCdUsuario());
 

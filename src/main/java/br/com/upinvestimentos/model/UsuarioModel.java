@@ -15,28 +15,41 @@ public class UsuarioModel {
     
     private Date dataNasc; // Data de nascimento do usuário
     
+    private int cdUsuarioSet;
+    
 
     // Construtor padrão sem argumentos
 	public UsuarioModel() {
 		
 	}
 	
+	
+
 	public UsuarioModel(int cdUsuario) {
 	}
 
     // Construtor com dados obrigatórios (exceto a senha)
-	public UsuarioModel(int cdUsuario, String nomeUsuario, String numeroCPF, Date dataNasc, String descricaoEmail) {
+	public UsuarioModel(int cdUsuario, String nomeUsuario, String numeroCPF, Date dataNasc, String descricaoEmail, int cdUsuarioSet) {
 		this.cdUsuario = cdUsuario;
 		this.nomeUsuario = nomeUsuario;
 		this.numeroCPF = numeroCPF;
 		this.dataNasc = dataNasc;
 		this.descricaoEmail =descricaoEmail;
+		this.cdUsuarioSet = cdUsuarioSet;
 
 	}
 
 
 	public UsuarioModel(String nomeUsuario, String numeroCPF, String dataFormatada, String descricaoEmail, int cdUsuario) {
 		// TODO Auto-generated constructor stub
+	}
+	
+	public int getCdUsuarioSet() {
+		return cdUsuarioSet;
+	}
+
+	public void setCdUsuarioSet(int cdUsuarioSet) {
+		this.cdUsuarioSet = cdUsuarioSet;
 	}
 
 	// Métodos de acesso para o campo usuarioId
