@@ -3,7 +3,6 @@ package br.com.upinvestimentos.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLDataException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -137,7 +136,7 @@ public class UsuarioDAO {
 		}
 	}
 	
-
+//LISTAR TODOS OS USUARIOS
 	public void listarUsuarios(UsuarioModel usuario) throws SQLException {
 	}
 	public List<UsuarioModel> listarUsuarios() throws SQLException {
@@ -183,5 +182,50 @@ public class UsuarioDAO {
 	    return usuarios;
 	}
 
+//LISTAR USUARIO POR ID
+	public List<UsuarioModel> listarUsuariosPorCdUser(int cdUser) throws SQLException {
+	    PreparedStatement stmt = null;
+	    ResultSet resultSet = null;
+	    List<UsuarioModel> usuarios = new ArrayList<>();
+	    
+	    try {
+	        conexao = ConexaoOracle.realizarConexao();
+	        String sql = "SELECT * FROM T_USER WHERE cd_user = ?";
+	        stmt = conexao.prepareStatement(sql);
+	        stmt.setInt(1, cdUser); // Define o valor do parâmetro
+
+	        resultSet = stmt.executeQuery();
+	        
+	        while (resultSet.next()) {
+	            UsuarioModel usuario = new UsuarioModel();
+	            usuario.setNomeUsuario(resultSet.getString("nm_user"));
+	            usuario.setNumeroCPF(resultSet.getString("nr_CPF"));
+	            usuario.setDescricaoEmail(resultSet.getString("ds_email"));
+	            usuario.setDataNasc(resultSet.getDate("dt_nasc"));
+	            usuario.setCdUser(resultSet.getInt("cd_user"));
+	            
+	            usuarios.add(usuario);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	            if (resultSet != null) {
+	                resultSet.close();
+	            }
+	            if (stmt != null) {
+	                stmt.close();
+	            }
+	            if (conexao != null) {
+	                conexao.close();
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	    
+	    return usuarios;
+	}
+	
 
 }
