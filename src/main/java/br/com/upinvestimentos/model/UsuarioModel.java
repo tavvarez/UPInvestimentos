@@ -5,78 +5,97 @@ import java.util.Date;
 // Classe que representa um modelo de usuário
 public class UsuarioModel {
 	
-    private int cd_user; // Identificador do usuário
+    private int cdUsuario; // Identificador do usuário
     
-    private String nm_user; // Nome do usuário
+    private String nomeUsuario; // Nome do usuário
     
-    private String ds_email; // Email do usuário
+    private String descricaoEmail; // Email do usuário
     
-    private String nr_CPF; // Numero de CPF do usuário
+    private String numeroCPF; // Numero de CPF do usuário
     
-    private Date dt_nasc; // Data de nascimento do usuário
+    private Date dataNasc; // Data de nascimento do usuário
+    
+    private int cdUsuarioSet;
+    
 
     // Construtor padrão sem argumentos
 	public UsuarioModel() {
-		super();
+		
+	}
+	
+	
+
+	public UsuarioModel(int cdUsuario) {
 	}
 
     // Construtor com dados obrigatórios (exceto a senha)
-	public UsuarioModel(int cd_user, String nm_user, String ds_email, String nr_CPF, Date dt_nasc) {
-		super();
-		this.cd_user = cd_user;
-		this.nm_user = nm_user;
-		this.ds_email = ds_email;
-		this.nr_CPF = nr_CPF;
-		this.dt_nasc = dt_nasc;
+	public UsuarioModel(int cdUsuario, String nomeUsuario, String numeroCPF, Date dataNasc, String descricaoEmail, int cdUsuarioSet) {
+		this.cdUsuario = cdUsuario;
+		this.nomeUsuario = nomeUsuario;
+		this.numeroCPF = numeroCPF;
+		this.dataNasc = dataNasc;
+		this.descricaoEmail =descricaoEmail;
+		this.cdUsuarioSet = cdUsuarioSet;
+
 	}
 
-    // Métodos de acesso para o campo usuarioId
-	public int getcd_user() {
-		return cd_user;
+
+	public UsuarioModel(String nomeUsuario, String numeroCPF, String dataFormatada, String descricaoEmail, int cdUsuario) {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public int getCdUsuarioSet() {
+		return cdUsuarioSet;
 	}
 
-	public void setcd_user(int cd_user) {
-		this.cd_user = cd_user;
+	public void setCdUsuarioSet(int cdUsuarioSet) {
+		this.cdUsuarioSet = cdUsuarioSet;
+	}
+
+	// Métodos de acesso para o campo usuarioId
+	public int getCdUsuario() {
+		return cdUsuario;
+	}
+
+	public void setCdUser(int cdUsuario) {
+		this.cdUsuario = cdUsuario;
 	}
 
     // Métodos de acesso para o campo nome
-	public String getnm_user() {
-		return nm_user;
+	public String getNomeUsuario() {
+		return nomeUsuario;
 	}
 
-	public void setnm_user(String nm_user) {
-		this.nm_user = nm_user;
+	public void setNomeUsuario(String nomeUsuario) {
+		this.nomeUsuario = nomeUsuario;
 	}
 
     // Métodos de acesso para o campo CPF
-	public String getnr_CPF() {
-		return nr_CPF;
+	public String getNumeroCPF() {
+		return numeroCPF;
 	}
 
-	public void setnr_CPF(String nr_CPF) {
-		this.nr_CPF = nr_CPF;
+	public void setNumeroCPF(String numeroCPF) {
+		this.numeroCPF = numeroCPF;
 	}
 
     // Métodos de acesso para o campo email
-	public String getds_email() {
-		return nr_CPF;
+	public String getDescricaoEmail() {
+		return descricaoEmail;
+	}
+	
+	public void setDescricaoEmail(String descricaoEmail) {
+	    this.descricaoEmail = descricaoEmail;
 	}
 
 	
 	 // Métodos de acesso para o campo dt_nasc
-		public Date getdt_nasc() {
-			return (dt_nasc);
+		public Date getDataNasc() {
+			return dataNasc;
 		}
 
-		public void setdt_nasc(Date dt_nasc) {
-			this.dt_nasc = dt_nasc;
+		public void setDataNasc(Date dataNasc) {
+			this.dataNasc = dataNasc;
 		}
 
-
-    // Sobrescrita do método toString para exibir os detalhes do usuário
-	@Override
-	public String toString() {
-		return "UsuarioModel [cd_user=" + cd_user + ", nm_user=" + nm_user + ", ds_email=" + ds_email + ", nr_CPF=" + nr_CPF
-				+ ", dt_nasc=" + dt_nasc + "]";
-	}
 }
