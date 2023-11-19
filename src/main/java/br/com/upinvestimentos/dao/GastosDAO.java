@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.upinvestimentos.bd.ConexaoOracle;
+import br.com.upinvestimentos.model.ControleGastoGeralModel;
 
 public class GastosDAO {
 	private Connection conexaoDB;
@@ -81,6 +82,14 @@ public class GastosDAO {
 		// TODO Auto-generated method stub
 		return valorSaldo;
 	}
+	
+	// Inserir um novo produto
+    public void inserirTransacao(ControleGastoGeralModel novaEntrada) {
+        int novoCdTransacao = listNovaEntrada.size() + 1;
+        novaEntrada.setCdTransacao(novoCdTransacao);
+        novaEntrada.s
+        listNovaEntrada.add(novaEntrada);
+    }
 
 	
 }

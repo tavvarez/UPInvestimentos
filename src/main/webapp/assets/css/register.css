@@ -1,0 +1,160 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Comfortaa', cursive !important; 
+    background-color: #FBFBFB !important;
+}
+
+.register-content {
+    margin: 35px auto;
+    padding: 20px;
+    box-shadow: 1px 1px 30px #aaa;
+    border: 2px solid  #FBFBFB;
+    width: 90%;
+    border-radius: 30px;
+    transition: .5s;
+}
+
+/* Rodapé */
+.footer {
+    background-color: #333;
+    color: #FFFFFF;
+    text-align: center;
+    padding: 20px;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+  }
+
+
+/* Menu */
+  @media (max-width: 768px) {
+    .header {
+        flex-direction: column !important;
+        padding: 10px 20px !important;
+        text-align: center !important;
+    }
+
+    .logo {
+        margin-right: 0 !important;
+        margin-bottom: 10px !important;
+    }
+}
+
+.cta-buttons button {
+    margin-right: 10px;
+    padding: 10px;
+    background-color: #2dc653;
+    border: 1px solid #333;
+    border-radius: 70px;
+    color: #333;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.5s;
+}
+
+.cta-buttons button:hover {
+    transform: scale(1.1) !important;
+}
+
+.cta-buttons {
+    display: flex !important;
+    align-items: center !important;
+}
+
+.header {
+    background-color: #FFFFFF;
+    color: #333;
+    display: flex;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 10px !important;
+    margin: 0px auto !important;
+}
+
+.logo {
+    font-size: 24px;
+    margin: 0;
+    color: #333;
+    margin-right: 80px;
+}
+
+.botao {
+    margin-right: 10px !important;
+    padding: 10px;
+    background-color: #2dc653;
+    border: 1px solid #333;
+    border-radius: 70px;
+    color: #333;
+    font-weight: bold;
+    cursor: pointer ;
+    transition: transform 0.5s;
+}
+
+.botao:hover {
+    transform: scale(1.1);
+}
+
+.icon-login {
+    color: #2dc653;
+    margin-right: 20px;
+    cursor: pointer;
+    transition: transform 0.5s;
+    background-color: #FFFFFF;
+}
+
+
+/* Menu */
+.menu {
+    position: fixed;
+    top: 50;
+    right: -250px; /* Inicialmente, o menu está oculto à direita */
+    width: 250px;
+    height: 100%;
+    background-color: #333;
+    color: #fff;
+    transition: right 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.menu.hidden {
+    right: -250px; /* Esconda o menu à direita da tela */
+}
+
+.side-menu {
+    list-style: none;
+    padding: 15;
+    margin: 15;
+}
+
+.side-menu li {
+    padding: 10px;
+}
+
+
+.side-menu li a {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+}
+
+.side-menu li:hover {
+    background-color: #444;
+}
+
+.side-menu li a:hover {
+    color: #fff;
+}
+
+#close-menu {
+    margin-top: 25px; /* Coloca o botão "X" na parte inferior do menu */
+    padding: 25px;
+}
+
