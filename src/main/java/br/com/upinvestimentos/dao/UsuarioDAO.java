@@ -2,9 +2,12 @@ package br.com.upinvestimentos.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLDataException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import br.com.upinvestimentos.bd.ConexaoOracle;
 import br.com.upinvestimentos.model.UsuarioModel;
@@ -135,104 +138,50 @@ public class UsuarioDAO {
 	}
 	
 
-//LISTAR USUÁRIOS
-//
-//    
-//
-//	public List<Usuario> listarUsuarios() throws DBException {
-//        List<Usuario> usuarios = new ArrayList<>();
-//        Connection conexao = null;
-//        PreparedStatement stmt = null;
-//        ResultSet rs = null;
-//
-//        try {
-//            conexao = ConnectionManager.getInstance().getConnection();
-//            String sql = "SELECT cd_user, nm_user, nr_CPF, dt_nasc, ds_email FROM T_USER";
-//            stmt = conexao.prepareStatement(sql);
-//            rs = stmt.executeQuery();
-//
-//            while (rs.next()) {
-//                Usuario usuario = new Usuario();
-//                usuario.setCodigo(rs.getLong("cd_user"));
-//                usuario.setNome(rs.getString("nm_user"));
-//                usuario.setCPF(rs.getString("nr_CPF"));
-//                Calendar dataNascimento = Calendar.getInstance();
-//                dataNascimento.setTime(rs.getDate("dt_nasc"));
-//                usuario.setDataNascimento(dataNascimento);
-//                usuario.setEmail(rs.getString("ds_email"));
-//
-//                usuarios.add(usuario);
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//            throw new DBException("Erro ao listar usuários.");
-//        } finally {
-//            try {
-//                if (rs != null) {
-//                    rs.close();
-//                }
-//                if (stmt != null) {
-//                    stmt.close();
-//                }
-//                if (conexao != null) {
-//                    conexao.close();
-//                }
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//        return usuarios;
-//    }
-//
-////BUSCAR POR CÓDIGO
-//    @Override
-//    public Usuario buscarUsuarioPorCodigo(long codigo) throws DBException {
-//        Connection conexao = null;
-//        PreparedStatement stmt = null;
-//        ResultSet rs = null;
-//        Usuario usuario = null;
-//
-//        try {
-//            conexao = ConnectionManager.getInstance().getConnection();
-//            String sql = "SELECT cd_user, nm_user, nr_CPF, dt_nasc, ds_email FROM T_USER WHERE cd_user = ?";
-//            stmt = conexao.prepareStatement(sql);
-//            stmt.setLong(1, codigo);
-//            rs = stmt.executeQuery();
-//
-//            if (rs.next()) {
-//                usuario = new Usuario();
-//                usuario.setCodigo(rs.getLong("cd_user"));
-//                usuario.setNome(rs.getString("nm_user"));
-//                usuario.setCPF(rs.getString("nr_CPF"));
-//                Calendar dataNascimento = Calendar.getInstance();
-//                dataNascimento.setTime(rs.getDate("dt_nasc"));
-//                usuario.setDataNascimento(dataNascimento);
-//                usuario.setEmail(rs.getString("ds_email"));
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//            throw new DBException("Erro ao buscar usuário por código.");
-//        } finally {
-//            try {
-//                if (rs != null) {
-//                    rs.close();
-//                }
-//                if (stmt != null) {
-//                    stmt.close();
-//                }
-//                if (conexao != null) {
-//                    conexao.close();
-//                }
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//        return usuario;
-//    }
-//
+	public void listarUsuarios(UsuarioModel usuario) throws SQLException {
+	}
+	public List<UsuarioModel> listarUsuarios() throws SQLException {
+	    PreparedStatement stmt = null;
+	    ResultSet resultSet = null;
+	    List<UsuarioModel> usuarios = new ArrayList<>();
+	    
+	    try {
+	        conexao = ConexaoOracle.realizarConexao();
+	        String sql = "SELECT * FROM T_USER";
+	        stmt = conexao.prepareStatement(sql);
 
-
-
+	        resultSet = stmt.executeQuery();
+	        
+	        while (resultSet.next()) {
+	            UsuarioModel usuario = new UsuarioModel();
+	            usuario.setNomeUsuario(resultSet.getString("nm_user"));
+	            usuario.setNumeroCPF(resultSet.getString("nr_CPF"));
+	            usuario.setDescricaoEmail(resultSet.getString("ds_email"));
+	            usuario.setDataNasc(resultSet.getDate("dt_nasc"));
+	            usuario.setCdUser(resultSet.getInt("cd_user"));
+	            	           
+	            usuarios.add(usuario);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	            if (resultSet != null) {
+	                resultSet.close();
+	            }
+	            if (stmt != null) {
+	                stmt.close();
+	            }
+	            if (conexao != null) {
+	                conexao.close();
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	    
+	    return usuarios;
+	}
 
 
 }
