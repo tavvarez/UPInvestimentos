@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.upinvestimentos.bd.ConexaoOracle;
+import br.com.upinvestimentos.model.ControleGastosEntradasModel;
 
 public class GastosSaidasDAO {
 
@@ -67,6 +68,18 @@ public class GastosSaidasDAO {
 			return lista;
 		}
 
+		
+//		// Inserir um novo produto
+//		public void inserirSaidasGastos(ControleGastosEntradasModel entradaGastos) {
+//		        entradaGastos.setValorEntrada (valorEntradas);
+//		        entradaGastos.setDescricaoEntrada(descricaoEntradas);
+//		        entradaGastos.setValorEntrada(ControleGastosServlet.des);
+//		        entradaGastos.set;//(novoId);
+//		        listNovaTransacao.add(entradaGastos);
+//		}
+//		
+		
+		
 		public int getCdTransacao() {
 			// TODO Auto-generated method stub
 			return cdTransacao;
