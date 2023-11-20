@@ -7,84 +7,85 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.fiap.troca.model.ProdutoModel;
 import br.com.upinvestimentos.bd.ConexaoOracle;
+import br.com.upinvestimentos.model.ControleGastoGeralModel;
+import br.com.upinvestimentos.model.ControleGastosEntradasModel;
 
 public class GastosEntradasDAO {
-		private Connection conexaoDB;
-		private int cdTransacao;// Código da transação
-		private double valorEntrada;// Valor da entrada   
-		private String descricaoEntrada; //Descrição da entrada de valores
-			
-		
-		public GastosEntradasDAO(int cdTransacao, Double valorEntrada, String descricaoEntrada) {
-			this.cdTransacao = cdTransacao;
-			this.valorEntrada = valorEntrada;
-			this.descricaoEntrada = descricaoEntrada;
-		}
-		
-		public GastosEntradasDAO() {
+	private Connection conexaoDB;
+	private int cdTransacao;// Código da transação
+	private double valorEntrada;// Valor da entrada
+	private String descricaoEntrada; // Descrição da entrada de valores
 
-		}
-		
+	// List para receber valores da nova transacao
+	private List<ControleGastosEntradasModel> listNovaTransacao;
 
-		public List<GastosEntradasDAO> getAll() {
-			List<GastosEntradasDAO> lista = new ArrayList<GastosEntradasDAO>();
-			PreparedStatement stmt = null;
-			ResultSet rs = null;
-			
-			try {
-				conexaoDB = ConexaoOracle.realizarConexao();
-				stmt = conexaoDB.prepareStatement("SELECT * FROM T_CTRL_GASTO_ENTRADA"); // CD_TRANSACAO, VL_CRTL_SALDO, CD_USER
-				rs = stmt.executeQuery();
+	public GastosEntradasDAO(int cdTransacao, Double valorEntrada, String descricaoEntrada) {
+		this.cdTransacao = cdTransacao;
+		this.valorEntrada = valorEntrada;
+		this.descricaoEntrada = descricaoEntrada;
+	}
 
-				// Percorre todos os registros encontrados
-				while (rs.next()) {
-					int numTransacoes = rs.getInt("CD_TRANSACAO");
-					Double valorEntradas = rs.getDouble("VL_VL_ENTRADA");
-					String descricaoEntradas = rs.getString("DS_ENTRADA");
-					
-					// Cria um objeto novoEntrasa com as informações encontradas
-					GastosEntradasDAO novoEntrada = new GastosEntradasDAO(numTransacoes, valorEntradas, descricaoEntradas);
-	                lista.add(novoEntrada);
+	public GastosEntradasDAO() {
 
-				}
-			} catch (SQLException e) {
-				if (e.getErrorCode() == 942) {
-					System.out.printf("Tabela inexistente!", e);
-				}
-				e.printStackTrace();
-			} finally {
-				try {
-					stmt.close();
-					rs.close();
-					conexaoDB.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
+	}
+
+	public List<GastosEntradasDAO> getAll() {
+		List<GastosEntradasDAO> lista = new ArrayList<GastosEntradasDAO>();
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+
+		try {
+			conexaoDB = ConexaoOracle.realizarConexao();
+			stmt = conexaoDB.prepareStatement("SELECT * FROM T_CTRL_GASTO_ENTRADA"); // CD_TRANSACAO, VL_CRTL_SALDO,
+																						// CD_USER
+			rs = stmt.executeQuery();
+
+			// Percorre todos os registros encontrados
+			while (rs.next()) {
+				int numTransacoes = rs.getInt("CD_TRANSACAO");
+				Double valorEntradas = rs.getDouble("VL_VL_ENTRADA");
+				String descricaoEntradas = rs.getString("DS_ENTRADA");
+
+				// Cria um objeto novoEntrasa com as informações encontradas
+				GastosEntradasDAO novoEntrada = new GastosEntradasDAO(numTransacoes, valorEntradas, descricaoEntradas);
+				lista.add(novoEntrada);
+
 			}
-			return lista;
+		} catch (SQLException e) {
+			if (e.getErrorCode() == 942) {
+				System.out.printf("Tabela inexistente!", e);
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				stmt.close();
+				rs.close();
+				conexaoDB.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
+		return lista;
+	}
 
-		
-		// Inserir um novo produto
-	    public void inserirEntradaGastos(ControleGastosEntradaModel entradaGastos) {
-	        int novoId = produtos.size() + 1;
-	        produto.setProdutoId(novoId);
-	        produtos.add(produto);
-		
-		
-		public int getCdTransacao() {
-			// TODO Auto-generated method stub
-			return cdTransacao;
-		}
+	/*
+	 * // Inserir um novo produto public void
+	 * inserirEntradaGastos(ControleGastosEntradasModel entradaGastos) {
+	 * entradaGastos.setValorEntrada (valorEntradas);
+	 * entradaGastos.setDescricaoEntrada(descricaoEntradas);
+	 * entradaGastos.setValorEntrada(ControleGastosServlet.des);
+	 * entradaGastos.set;//(novoId); listNovaTransacao.add(entradaGastos); }
+	 */
 
-		public Double getValorEntrada() {
-			// TODO Auto-generated method stub
-			return valorEntrada;
-		}	
-	
-	
-	
+	public int getCdTransacao() {
+		// TODO Auto-generated method stub
+		return cdTransacao;
+	}
+
+	public Double getValorEntrada() {
+		// TODO Auto-generated method stub
+		return valorEntrada;
+	}
 
 }

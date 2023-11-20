@@ -12,27 +12,27 @@ import br.com.upinvestimentos.model.ControleGastoGeralModel;
 
 public class GastosDAO {
 	private Connection conexaoDB;
-	private int cdTransacao; // Código da transação  
-	private Double valorSaldo; //Saldo atual
+	private int cdTransacao; // Código da transação
+	private Double valorSaldo; // Saldo atual
 	private int idUser;
-	
-	
+
+	// List para receber valores da nova transacao
+	private List<ControleGastoGeralModel> listNovaTransacao;
+
 	public GastosDAO(int cdTransacao, Double valorSaldo, int idUser) {
 		this.cdTransacao = cdTransacao;
 		this.valorSaldo = valorSaldo;
 		this.idUser = idUser;
 	}
-	
-	public GastosDAO() {
 
+	public GastosDAO() {
 	}
-	
 
 	public List<GastosDAO> getAll() {
 		List<GastosDAO> lista = new ArrayList<GastosDAO>();
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		
+
 		try {
 			conexaoDB = ConexaoOracle.realizarConexao();
 			stmt = conexaoDB.prepareStatement("SELECT * FROM T_CTRL_GASTO"); // CD_TRANSACAO, VL_CRTL_SALDO, CD_USER
@@ -43,10 +43,10 @@ public class GastosDAO {
 				int numTransacoes = rs.getInt("CD_TRANSACAO");
 				Double valorTransacoes = rs.getDouble("VL_CRTL_SALDO");
 				int idUser = rs.getInt("CD_USER");
-				
+
 				// Cria um objeto novoUsuario com as informações encontradas
 				GastosDAO novoGasto = new GastosDAO(numTransacoes, valorTransacoes, idUser);
-                lista.add(novoGasto);
+				lista.add(novoGasto);
 
 			}
 		} catch (SQLException e) {
@@ -71,17 +71,16 @@ public class GastosDAO {
 		return cdTransacao;
 	}
 
-
 	public int getIdUser() {
 		// TODO Auto-generated method stub
 		return idUser;
 	}
 
-
 	public Double getValorSaldo() {
 		// TODO Auto-generated method stub
 		return valorSaldo;
 	}
+<<<<<<< HEAD
 	
 	// Inserir um novo produto
 	public void inserirTransacao(ControleGastoGeralModel novaEntrada) {
@@ -92,3 +91,44 @@ public class GastosDAO {
     }
 	
 }
+=======
+
+	/*
+	 * // Inserir um nova trasacao public void
+	 * inserirTransacao(ControleGastoGeralModel novaEntrada) { int novoCdTransacao =
+	 * listNovaTransacao.size() + 1; novaEntrada.setCdTransacao(novoCdTransacao);
+	 * listNovaTransacao.add(novaEntrada); }
+	 */
+
+	public void inserirGasto(GastosDAO novoGasto) throws Exception {
+		PreparedStatement stmt = null;
+
+		try {
+			conexaoDB = ConexaoOracle.realizarConexao();
+			String sql = "INSERT INTO T_CTRL_GASTO (CD_TRANSACAO, VL_CRTL_SALDO, CD_USER) VALUES (?, ?, ?)";
+			stmt = conexaoDB.prepareStatement(sql);
+
+			stmt.setInt(1, novoGasto.getCdTransacao());
+			stmt.setDouble(2, novoGasto.getValorSaldo());
+			stmt.setInt(3, novoGasto.getIdUser());
+
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new Exception("Erro ao cadastrar gasto.");
+		} finally {
+			try {
+				if (stmt != null) {
+					stmt.close();
+				}
+				if (conexaoDB != null) {
+					conexaoDB.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+} // end Routine
+>>>>>>> 571c5912b0f885875271e80d2987f56e647305da
