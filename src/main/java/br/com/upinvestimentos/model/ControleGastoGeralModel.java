@@ -25,6 +25,10 @@ public class ControleGastoGeralModel {
 			// TODO Auto-generated method stub
 			return cdTransacao;
 		}
+		
+		public void setCdTransacao(int cdTransacao) {
+			this.cdTransacao = cdTransacao;
+		}
 
 
 		public int getItUser() {
