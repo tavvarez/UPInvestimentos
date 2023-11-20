@@ -84,12 +84,11 @@ public class GastosDAO {
 	}
 	
 	// Inserir um novo produto
-    public void inserirTransacao(ControleGastoGeralModel novaEntrada) {
+	public void inserirTransacao(ControleGastoGeralModel novaEntrada) {
         int novoCdTransacao = listNovaEntrada.size() + 1;
         novaEntrada.setCdTransacao(novoCdTransacao);
         novaEntrada.s
         listNovaEntrada.add(novaEntrada);
     }
-
 	
 }

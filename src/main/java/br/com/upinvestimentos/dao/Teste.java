@@ -13,7 +13,7 @@ public class Teste {
         try {
             UsuarioDAO usuarioDao = new UsuarioDAO();
 
-            int cdUsuarioParaFiltrar = 3; // Substitua pelo ID desejado para filtrar os usuários
+            int cdUsuarioParaFiltrar = 2; // Substitua pelo ID desejado para filtrar os usuários
             List<UsuarioModel> listaUsuarios = usuarioDao.listarUsuariosPorCdUser(cdUsuarioParaFiltrar);
 
             for (UsuarioModel usuario : listaUsuarios) {
